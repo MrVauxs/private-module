@@ -1,0 +1,71 @@
+{
+	"id": "example-id",
+	"title": "Example Title",
+	"description": "Example Description.",
+	"version": "This is replaced",
+	"manifestPlusVersion": "1.2.0",
+	"authors": [
+		{
+			"name": "MrVauxs",
+			"discord": "MrVauxs#8622",
+			"twitter": "@ThatVauxs",
+			"email": "mrvauxs@gmail.com",
+			"ko-fi": "MrVauxs",
+			"patreon": "MrVauxs",
+			"flags": {}
+		}
+	],
+	"compatibility": {
+		"minimum": "10",
+		"verified": "10"
+	},
+	"esmodules": [
+		"script/example.js"
+	],
+	"relationships": {
+		"systems": [
+			{
+				"id": "pf2e",
+				"type": "system",
+				"manifest": "https://github.com/foundryvtt/pf2e/releases/latest/download/system.json",
+				"compatibility": {
+					"minimum": "4.10.3"
+				}
+			},
+			{
+				"id": "dnd5e",
+				"type": "system",
+				"manifest": "https://github.com/foundryvtt/dnd5e/releases/latest/download/system.json",
+				"compatibility": {
+					"minimum": "2.0.3"
+				}
+			}
+		]
+	},
+	"styles": [
+		"styles/example.css"
+	],
+	"packs": [
+		{
+			"label": "Example",
+			"name": "example",
+			"path": "packs/example.db",
+			"system": "pf2e",
+			"type": "Item",
+			"private": false,
+			"flags": {}
+		},
+		{
+			"label": "Example",
+			"name": "example",
+			"path": "packs/example.db",
+			"system": "dnd5e",
+			"type": "Item",
+			"private": false,
+			"flags": {}
+		}
+	],
+	"url": "example url",
+	"manifest": null,
+	"download": null
+}
