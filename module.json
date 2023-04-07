@@ -20,7 +20,7 @@
 		"verified": "10"
 	},
 	"esmodules": [
-		"script/example.js"
+		"scripts/example.js"
 	],
 	"relationships": {
 		"systems": [
