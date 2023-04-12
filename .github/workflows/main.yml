@@ -23,8 +23,6 @@ jobs:
         files: 'module.json'
       env:
         version: ${{steps.get_version.outputs.version-without-v}}
-        manifest: https://drive.google.com/uc?export=download&id=REPLACE_ME
-        download: https://drive.google.com/uc?export=download&id=REPLACE_ME
 
     # Create a folder containing all the module stuff and zip it for the release
     - name: Create Zip
