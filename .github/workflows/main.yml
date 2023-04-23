@@ -44,11 +44,15 @@ jobs:
         body: ${{ github.event.release.body }}
 
     - name: Upload to Google Drive
+      env:
+        CREDENTIALS: ${{ secrets.CREDENTIALS }}
+        FOLDERID: ${{ secrets.FOLDERID }}
+      if: ${{ env.CREDENTIALS != '' }}
       uses: adityak74/google-drive-upload-git-action@main
       with:
-        credentials: ${{ secrets.CREDENTIALS }}
+        credentials: ${{ env.CREDENTIALS }}
         filename: "module*"
-        folderId: ${{ secrets.FOLDERID }}
+        folderId: ${{ env.FOLDERID }}
         overwrite: "true"
 
     # Create a ping in the Discord server
