@@ -55,6 +55,13 @@ jobs:
         folderId: ${{ env.FOLDERID }}
         overwrite: "true"
 
+    - name: Get Module Title
+      id: title
+      uses: notiz-dev/github-action-json-property@release
+      with:
+          path: 'module.json'
+          prop_path: 'title'
+
     # Create a ping in the Discord server
     - name: Send Discord Ping
       uses: Ilshidur/action-discord@0.3.2
@@ -62,4 +69,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       if: ${{ env.DISCORD_WEBHOOK != '' }}
       with:
-        args: 'REPLACE_ME has been updated to version `${{github.event.release.tag_name}}`!'
+        args: '${{steps.title.outputs.propStr}} has been updated to version `${{github.event.release.tag_name}}`!'
