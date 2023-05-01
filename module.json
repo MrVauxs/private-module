@@ -65,6 +65,9 @@
 			"flags": {}
 		}
 	],
+	"flags": {
+		"path": "Optional FTP Upload Path"
+	},
 	"url": "example url",
 	"manifest": null,
 	"download": null
