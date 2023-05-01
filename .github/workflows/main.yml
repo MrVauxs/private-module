@@ -43,6 +43,7 @@ jobs:
         tag: ${{ github.event.release.tag_name }}
         body: ${{ github.event.release.body }}
 
+    # Upload to Google Drive
     - name: Upload to Google Drive
       env:
         CREDENTIALS: ${{ secrets.CREDENTIALS }}
@@ -55,14 +56,46 @@ jobs:
         folderId: ${{ env.FOLDERID }}
         overwrite: "true"
 
+    # Upload to FTP
+    - name: Get FTP Path
+      id: ftp
+      env:
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      if: ${{ env.FTP_PASSWORD != '' }}
+      uses: notiz-dev/github-action-json-property@release
+      with:
+          path: 'module.json'
+          prop_path: 'flags.path'
+
+    - name: Put Files into FTP Folder
+      env:
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      if: ${{ env.FTP_PASSWORD != '' }}
+      run: mkdir dist && cp module.json dist/ && cp module.zip dist/
+
+    - name: Upload FTP
+      uses: sebastianpopp/ftp-action@releases/v2
+      env:
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      if: ${{ env.FTP_PASSWORD != '' }}
+      with:
+        host: ${{ secrets.FTP_SERVER }}
+        user: ${{ secrets.FTP_USERNAME }}
+        password: ${{ env.FTP_PASSWORD }}
+        localDir: "dist"
+        remoteDir: ${{steps.ftp.outputs.propStr}}
+
+    # Create a ping in the Discord server
     - name: Get Module Title
       id: title
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      if: ${{ env.DISCORD_WEBHOOK != '' }}
       uses: notiz-dev/github-action-json-property@release
       with:
           path: 'module.json'
           prop_path: 'title'
 
-    # Create a ping in the Discord server
     - name: Send Discord Ping
       uses: Ilshidur/action-discord@0.3.2
       env:
