@@ -54,9 +54,9 @@ jobs:
     # Upload to Google Drive
     - name: Upload MODULE to Google Drive
       uses: wei/rclone@v1.1.1
-      if: ${{ env.RCLONE_CONF != '' }}
       env:
         RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+      if: ${{ env.RCLONE_CONF != '' }}
       with:
         args: copy ./module.json REPLACE_ME:/
 
