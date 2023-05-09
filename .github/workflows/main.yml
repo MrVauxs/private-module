@@ -44,17 +44,20 @@ jobs:
         body: ${{ github.event.release.body }}
 
     # Upload to Google Drive
-    - name: Upload to Google Drive
+    - name: Upload ZIP to Google Drive
+      uses: wei/rclone@v1.1.1
       env:
-        CREDENTIALS: ${{ secrets.CREDENTIALS }}
-        FOLDERID: ${{ secrets.FOLDERID }}
-      if: ${{ env.CREDENTIALS != '' }}
-      uses: adityak74/google-drive-upload-git-action@main
+        RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
       with:
-        credentials: ${{ env.CREDENTIALS }}
-        filename: "module*"
-        folderId: ${{ env.FOLDERID }}
-        overwrite: "true"
+        args: copy ./module.zip REPLACE_ME:/
+
+    # Upload to Google Drive
+    - name: Upload MODULE to Google Drive
+      uses: wei/rclone@v1.1.1
+      env:
+        RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+      with:
+        args: copy ./module.json REPLACE_ME:/
 
     # Upload to FTP
     - name: Get FTP Path
